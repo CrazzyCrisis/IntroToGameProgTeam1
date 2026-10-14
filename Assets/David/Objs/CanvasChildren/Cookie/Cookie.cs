@@ -1,11 +1,16 @@
 using UnityEngine;
 using TMPro;
-using System;
+//using System;
 
 public class CookieScore : MonoBehaviour
 {
     private long TotalCookies;
-    public TextMeshProUGUI uiText;
+    private TextMeshProUGUI uiText;
+
+    void Start()
+    {
+        uiText = GetComponent<TextMeshProUGUI>();
+    }
 
     private void UpdateText()
     {
@@ -42,4 +47,6 @@ public class CookieScore : MonoBehaviour
     {
         return TotalCookies;
     }
+
+
 }
