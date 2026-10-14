@@ -1,5 +1,8 @@
 using System.Net;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class GoldenCookieSpawner : MonoBehaviour
 {
@@ -8,8 +11,7 @@ public class GoldenCookieSpawner : MonoBehaviour
     private CookieScore mainCookie;
     private Transform canvasTransform;
     private long totalCookiesSpawned;
-    private long currentCookiesSpawned;
-    private long timeToNextSpawn;
+    private float timeToNextSpawn;
 
 
     void Start()
@@ -27,13 +29,24 @@ public class GoldenCookieSpawner : MonoBehaviour
             Debug.Log("CookieScore object found: " + mainCookie.name);
         else
             Debug.Log("No CookieScore object could be found");
+
+        timeToNextSpawn = Random.Range(0.5f, 2f);
+    }
+
+    void Update()
+    {
+        timeToNextSpawn -= Time.deltaTime;
+        if (timeToNextSpawn < 0.0f)
+        {
+            timeToNextSpawn = Random.Range(0.5f, 2f);
+            SpawnCookie();
+        }
     }
 
     public void SpawnCookie()
     {
         ParentCookieToCanvas();
         totalCookiesSpawned += 1;
-        print(totalCookiesSpawned);
     }
 
     public void SpawnCookie(long value)
@@ -43,14 +56,13 @@ public class GoldenCookieSpawner : MonoBehaviour
             ParentCookieToCanvas();
         }
         totalCookiesSpawned += value;
-        print(totalCookiesSpawned);
     }
 
     private void ParentCookieToCanvas()
     {
         GameObject newCookie = Instantiate(cookie, canvasTransform);
         GoldenCookie gCookie = newCookie.GetComponent<GoldenCookie>();
-        var position = new Vector2(Random.Range(30.0f, 600.0f), Random.Range(-30.0f, 300.0f));
+        var position = new Vector2(Random.Range(30.0f, Screen.width - 30f), Random.Range(30.0f, Screen.height - 30f));
 
         newCookie.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         newCookie.GetComponent<RectTransform>().position = position;
