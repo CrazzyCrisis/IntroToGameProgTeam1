@@ -790,6 +790,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ScoreInc
       objectReference: {fileID: 0}
+    - target: {fileID: 9000809888450017371, guid: 029e3e88684442e409a69839cc9f5493, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9183829332767143348, guid: 029e3e88684442e409a69839cc9f5493, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
