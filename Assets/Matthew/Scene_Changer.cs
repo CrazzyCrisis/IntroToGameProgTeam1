@@ -19,10 +19,10 @@ public class MainMenu : MonoBehaviour
     }
     public void BackToMenu()
     {
-        SceneManager.LoadScene("Main_Menu");
+        SceneManager.LoadScene("Menu");
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Cookie");
     }
 }
