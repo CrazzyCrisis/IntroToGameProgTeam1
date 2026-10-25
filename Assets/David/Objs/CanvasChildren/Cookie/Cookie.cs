@@ -5,13 +5,13 @@ using TMPro;
 public class CookieScore : MonoBehaviour
 {
     public long TotalCookies;
-    public long IncAmount;
+    public long IncAmount = 1;
     public TextMeshProUGUI uiText;
+    public ParticleSystem cookieParticle;
 
     void Start()
     {
         uiText = GetComponent<TextMeshProUGUI>();
-        IncAmount = 1;
     }
 
     private void UpdateText()
@@ -23,6 +23,8 @@ public class CookieScore : MonoBehaviour
     {
         TotalCookies += IncAmount;
         UpdateText();
+        if (cookieParticle != null)
+            cookieParticle.Emit((int)IncAmount);
 
     }
 
@@ -35,6 +37,8 @@ public class CookieScore : MonoBehaviour
     public void ScoreInc(long value)
     {
         TotalCookies += IncAmount + value;
+        if (cookieParticle != null)
+            cookieParticle.Emit((int)(IncAmount + value));
         UpdateText();
 
     }
