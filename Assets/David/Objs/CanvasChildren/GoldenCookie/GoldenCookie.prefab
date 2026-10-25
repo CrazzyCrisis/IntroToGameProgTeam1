@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8aa5dcbbf9c79944fb9392bf19b0dbe3, type: 3}
+  m_Sprite: {fileID: 7663256970462078997, guid: a6c617b985a8e3e49a760bdced42438b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -145,3 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe4ef02bbd4da949b7b04136632baed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  GoldenCookieClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  minLifetime: 3
+  maxLifetime: 10

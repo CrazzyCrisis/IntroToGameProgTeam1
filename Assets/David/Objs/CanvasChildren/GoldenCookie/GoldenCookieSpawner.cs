@@ -10,6 +10,8 @@ public class GoldenCookieSpawner : MonoBehaviour
     public GameObject cookie; // This is the main cookie, dragged into the hierarchy. 
     public float minSpawnTime = 0.5f;
     public float maxSpawnTime = 10.0f;
+    public float minLifetime = 3.0f;
+    public float maxLifetime = 10f;
 
     private CookieScore mainCookie; // This is the score component of the cookie
     private Transform canvasTransform; // This is the canvas transform, gets its x and y.
@@ -75,12 +77,14 @@ public class GoldenCookieSpawner : MonoBehaviour
         // this SHOULD spawn a golden cookie in the local space of the canvas - DW
         GameObject newCookie = Instantiate(cookie, canvasTransform, false);
         GoldenCookie gCookie = newCookie.GetComponent<GoldenCookie>();
+        gCookie.minLifetime = minLifetime;
+        gCookie.maxLifetime = maxLifetime;
 
         // Spawns the cookie inside the local space of the camera with some buff
-        float spawnBuffer = 40.0f;
+        float spawnBuffer = 20.0f;
         var cookiePos = canvasTransform.position;
-        var position = new Vector2(Random.Range(cookiePos.x + spawnBuffer - canvasRect.rect.width / 2, cookiePos.x - spawnBuffer + canvasRect.rect.width / 2),
-                                   Random.Range(cookiePos.y + spawnBuffer - canvasRect.rect.height / 2, cookiePos.y - spawnBuffer + canvasRect.rect.height / 2)
+        var position = new Vector2(Random.Range(cookiePos.x + spawnBuffer - canvasRect.rect.width / 2, cookiePos.x + canvasRect.rect.width / 2),
+                                   Random.Range(cookiePos.y + spawnBuffer - canvasRect.rect.height / 2, cookiePos.y + canvasRect.rect.height / 2)
                                    );
 
         newCookie.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
@@ -93,7 +97,7 @@ public class GoldenCookieSpawner : MonoBehaviour
 
     private void ScoreInc()
     {
-        mainCookie.ScoreInc();
+        mainCookie.ScoreInc(Random.Range(1, 16));
     }
 
 

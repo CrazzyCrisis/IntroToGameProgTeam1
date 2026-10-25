@@ -1,17 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+//using UnityEngine.UIElements;
 
 public class GoldenCookie : MonoBehaviour
 {
     private Button newCookie;
     public UnityEvent GoldenCookieClicked;
+
+    public float minLifetime = 3.0f;
+    public float maxLifetime = 10.0f;
     private float timeUntilSudoKu;
     void Awake()
     {
         newCookie = GetComponent<Button>();
         newCookie.onClick.AddListener(DestroySelf);
-        timeUntilSudoKu = Random.Range(3.0f, 10.0f);
+        timeUntilSudoKu = Random.Range(minLifetime, maxLifetime);
     }
 
     void Update()
