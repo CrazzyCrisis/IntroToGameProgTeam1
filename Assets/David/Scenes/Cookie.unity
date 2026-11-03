@@ -8200,9 +8200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7071938bc34dd74aba5c9f72b0f4893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
-  musicSource: {fileID: 0}
+  musicSource: {fileID: 1265862152}
   menuMusic: {fileID: 0}
-  gameMusic: {fileID: 0}
+  gameMusic: {fileID: 8300000, guid: a6239c93c75cc7d47ba044c173a9f3c2, type: 3}
 --- !u!1 &1291722317
 GameObject:
   m_ObjectHideFlags: 0
@@ -8444,10 +8444,10 @@ MonoBehaviour:
   betInput: {fileID: 2043405330}
   cookieBalanceText: {fileID: 678083631}
   betMessageText: {fileID: 1956348825}
-  audioSource: {fileID: 0}
-  happyClickSound: {fileID: 0}
-  melancholyClickSound: {fileID: 0}
-  spaceSelectSound: {fileID: 0}
+  audioSource: {fileID: 1308470707}
+  happyClickSound: {fileID: 8300000, guid: ff54f076a15d00349b17aa17100ac262, type: 3}
+  melancholyClickSound: {fileID: 8300000, guid: ddc84263a26e7924cb93a7744254209f, type: 3}
+  spaceSelectSound: {fileID: 8300000, guid: 1c03fd94545a4a146b3a03d677bc688f, type: 3}
 --- !u!1 &1315111094
 GameObject:
   m_ObjectHideFlags: 0
