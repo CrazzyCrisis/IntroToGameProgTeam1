@@ -1,9 +1,14 @@
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Net;
+using System;
+using NUnit.Framework;
 
 public class ShopScript : MonoBehaviour
 {
+    
+    public CookieScore mainCookie;
     public int cookiesPerClick = 1; // Cookies given per click
     public float currentCookies; // Current amount of cookies the player has
     public float cookiesPerSecond; // Cookies given per second
@@ -23,29 +28,25 @@ public class ShopScript : MonoBehaviour
     public int extraHandLevel = 0; // Level for Extra Hand Upgrades
     public float extraHandCost = 10; // Cost for next Extra Hand Level
     public int powerGloveLevel = 0; // Level for Power Glove Upgrades
-    public float powerGloveCost = 10; // Cost for next Power Glove Level
+    public float powerGloveCost = 50; // Cost for next Power Glove Level
     public int mixerLevel = 0; // Level for Improved Mixer Upgrades
-    public float mixerCost = 10; // Cost for next Improved Mixer Level
+    public float mixerCost = 100; // Cost for next Improved Mixer Level
     public int storageLevel = 0; // Level for Improved Storage Upgrades
-    public float storageCost = 10; // Cost for next Improved Storage Level
+    public float storageCost = 150; // Cost for next Improved Storage Level
     public int flavorLevel = 0; // Level for Artifical Flavors Upgrades
-    public float flavorCost = 10; // Cost for next Artificial Flavors Level
+    public float flavorCost = 300; // Cost for next Artificial Flavors Level
     public int unlocksLevel = 0; // Level for Unclocks Upgrades
-    public float unlocksCost = 10; // Cost for next Unlocks Level
+    public float unlocksCost = 200; // Cost for next Unlocks Level
 
     public string currentSkin = "standard"; // Current skin being used
 
     public GameObject upgradeScreen;
     public GameObject bakeryScreen;
-    public GameObject skinsScreen;
 
     public GameObject chocolatePopup;
     public GameObject chunkPopup;
     public GameObject oatmealPopup;
 
-    public TextMeshProUGUI CPCText; // Cookies Per Click text
-    public TextMeshProUGUI CCText; // Current Cookies text
-    public TextMeshProUGUI CPSText; // Cookies Per Second text
     public TextMeshProUGUI batterText; // Displays current amount of batter compared to max amount of batter
 
     // Extra Hand Text
@@ -98,7 +99,7 @@ public class ShopScript : MonoBehaviour
                         currentCookies += Mathf.FloorToInt(extraHandCost * 0.25f);
                     }
                 }
-                extraHandCost = Mathf.FloorToInt(extraHandCost * 1.5f);
+                extraHandCost = Mathf.FloorToInt(extraHandCost * 1.3f);
             }
             
         }
@@ -120,7 +121,7 @@ public class ShopScript : MonoBehaviour
                         currentCookies += Mathf.FloorToInt(powerGloveCost * 0.25f);
                     }
                 }
-                powerGloveCost = Mathf.FloorToInt(powerGloveCost * 1.4f);
+                powerGloveCost = Mathf.FloorToInt(powerGloveCost * 1.6f);
             }
 
         }
@@ -141,7 +142,7 @@ public class ShopScript : MonoBehaviour
                         currentCookies += Mathf.FloorToInt(unlocksCost * 0.25f);
                     }
                 }
-                unlocksCost = Mathf.FloorToInt(unlocksCost * 1.5f);
+                unlocksCost = Mathf.FloorToInt(unlocksCost * 3f);
             }
 
         }
@@ -162,7 +163,7 @@ public class ShopScript : MonoBehaviour
                         currentCookies += Mathf.FloorToInt(flavorCost * 0.25f);
                     }
                 }
-                flavorCost = Mathf.FloorToInt(flavorCost * 1.5f);
+                flavorCost = Mathf.FloorToInt(flavorCost * 1.6f);
             }
 
         }
@@ -216,18 +217,18 @@ public class ShopScript : MonoBehaviour
     {
         if (type == "chocolate")
         {
-            if (currentBatter >= 100)
+            if (currentBatter >= 50)
             {
                 chocolateBuff += Mathf.FloorToInt(30 + (30 * flavorLevel * 0.1f));
-                currentBatter -= 100;
+                currentBatter -= 50;
             }
         }
         else if (type == "chunk")
         {
-            if (currentBatter >= 100)
+            if (currentBatter >= 75)
             {
                 chunkBuff += Mathf.FloorToInt(30 + (30 * flavorLevel * 0.1f));
-                currentBatter -= 100;
+                currentBatter -= 75;
             }
         }
         else if (type == "sugar")
@@ -240,15 +241,15 @@ public class ShopScript : MonoBehaviour
         }
         else if (type == "oatmeal")
         {
-            if (currentBatter >= 100)
+            if (currentBatter >= 150)
             {
                 oatmealBuff += Mathf.FloorToInt(15 + (15 * flavorLevel * 0.1f));
-                currentBatter -= 100;
+                currentBatter -= 150;
             }
         }
         else if (type == "white")
         {
-            if (currentBatter >= 1)
+            if (currentBatter >= 75)
             {
                 if (chocolateBuff > 0)
                 {
@@ -262,19 +263,20 @@ public class ShopScript : MonoBehaviour
                 {
                     boostedBuffs.Add("oatmeal");
                 }
-                currentBatter -= 1;
+                currentBatter -= 75;
             }
         }
         else if (type == "gliss")
         {
-            if (currentBatter >= 100)
+            if (currentBatter >= 200)
             {
-                // Put golden cookie spawn code here
-                currentBatter -= 100;
+                currentCookies *= 2;
+                currentBatter -= 200;
             }
         }
     }
 
+    //This was used for testing
     public void clickCookie()
     {
         if (chunkBuff > 0)
@@ -301,35 +303,60 @@ public class ShopScript : MonoBehaviour
         {
             upgradeScreen.SetActive(true);
             bakeryScreen.SetActive(false);
-            skinsScreen.SetActive(false);
         }
         else if (buttonType == "bakery" && unlocksLevel >= 1)
         {
             upgradeScreen.SetActive(false);
             bakeryScreen.SetActive(true);
-            skinsScreen.SetActive(false);
-        }
-        else if (buttonType == "skins" && unlocksLevel >= 3)
-        {
-            upgradeScreen.SetActive(false);
-            bakeryScreen.SetActive(false);
-            skinsScreen.SetActive(true);
         }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentCookies = 10;
-        cookiesPerSecond = 1;
+        currentCookies = 0;
+        cookiesPerSecond = 0;
+        cookiesPerClick = 1;
         currentBatter = 100;
         maxBatter = 100;
         batterRate = 1;
-    }
+        
+        extraHandLevel = 0;
+        extraHandCost = 10;
+        powerGloveLevel = 0;
+        powerGloveCost = 20;
+        mixerLevel = 0;
+        mixerCost = 350;
+        storageLevel = 0;
+        storageCost = 400;
+        flavorLevel = 0;
+        flavorCost = 500;
+        unlocksLevel = 0;
+        unlocksCost = 300;
+
+}
 
     // Update is called once per frame
     void Update()
     {
+        // Sets IncAmount to the correct number
+        if (chunkBuff > 0)
+        {
+            if (boostedBuffs.Contains("chunk"))
+            {
+                mainCookie.IncAmount = cookiesPerClick * 4;
+            }
+            else
+            {
+                mainCookie.IncAmount = cookiesPerClick * 2;
+            }
+
+        }
+        else
+        {
+            mainCookie.IncAmount = cookiesPerClick;
+        }
+        
         timer += Time.deltaTime;
         if (timer >= 1)
         {
@@ -386,10 +413,9 @@ public class ShopScript : MonoBehaviour
             timer = 0;
         }
 
+        mainCookie.TotalCookies = (long)currentCookies; // Sets TotalCookies to the correct number
+
         // Stats Text
-        CPCText.text = "Cookies Per Click: " + cookiesPerClick.ToString();
-        CCText.text = "Current Cookies: " + currentCookies.ToString();
-        CPSText.text = "Cookies Per Second: " + cookiesPerSecond.ToString();
         batterText.text = "Batter: " + currentBatter.ToString() + "/" + maxBatter.ToString();
 
         // Extra Hand Text
@@ -400,7 +426,7 @@ public class ShopScript : MonoBehaviour
         // Power Glove Text
         PGLevel.text = "Power Glove - LVL " + powerGloveLevel.ToString();
         PGCost.text = "Cost: " + powerGloveCost.ToString();
-        PGStats.text = "Current Increase: " + powerGloveLevel.ToString();
+        PGStats.text = "Current Increase: +" + powerGloveLevel.ToString();
 
         // Unlocks Text
         UCost.text = "Cost: " + unlocksCost.ToString();
@@ -413,11 +439,6 @@ public class ShopScript : MonoBehaviour
         {
             ULevel.text = "Unlocks - LVL " + unlocksLevel.ToString();
             UDescription.text = "Unlocks tic-tac-toe, where you can gamble cookies to earn more";
-        }
-        else if (unlocksLevel == 2)
-        {
-            ULevel.text = "Unlocks - LVL " + unlocksLevel.ToString();
-            UDescription.text = "Unlocks skins, which make your cookie look kind of cool";
         }
         else
         {
@@ -438,7 +459,7 @@ public class ShopScript : MonoBehaviour
         // Improved Storage Text
         ISLevel.text = "Improved Stoarge - LVL " + storageLevel.ToString();
         ISCost.text = "Cost: " + storageCost.ToString();
-        ISStats.text = "Current Increase: " + (storageLevel * 10).ToString();
+        ISStats.text = "Current Increase: +" + (storageLevel * 10).ToString();
 
         if (chocolateBuff > 0)
         {
@@ -466,6 +487,7 @@ public class ShopScript : MonoBehaviour
         {
             oatmealPopup.SetActive(false);
         }
+        
     }
 
 

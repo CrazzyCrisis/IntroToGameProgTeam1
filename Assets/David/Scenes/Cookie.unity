@@ -2744,6 +2744,7 @@ MonoBehaviour:
   maxSpawnTime: 25
   minLifetime: 3
   maxLifetime: 10
+  spawn: 1
 --- !u!114 &473056560 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7067256587954399687, guid: 029e3e88684442e409a69839cc9f5493, type: 3}
