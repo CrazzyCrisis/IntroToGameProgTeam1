@@ -54,5 +54,11 @@ public class CookieScore : MonoBehaviour
         return TotalCookies;
     }
 
+    public void RefreshCookieDisplay()
+    {
+        if (uiText == null)
+            uiText = GetComponent<TextMeshProUGUI>();
 
+        UpdateText();
+    }
 }
